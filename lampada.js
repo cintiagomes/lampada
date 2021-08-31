@@ -1,5 +1,8 @@
 "use strict"
 
+const lampada = document.getElementById("lampada")
+let idInterval
+
 function botoesligaDesliga(ligarEstado, desligarEstado){
     const ligar = document.getElementById("ligar")
     const desligar = document.getElementById("desligar")
@@ -7,13 +10,14 @@ function botoesligaDesliga(ligarEstado, desligarEstado){
     desligar.disabled = desligarEstado
 }
 
-function lampadaQuebrada(){
-    return (document.getElementById("lampada").src.indexOf("quebrada") !== -1)
-}
+//function lampadaQuebrada(){
+//    return (document.getElementById("lampada").src.indexOf("quebrada") !== -1)
+//}
+//function arrow
+
+const lampadaQuebrada = () => lampada.src.indexOf("quebrada") !== -1
 
 function ligarLampada(){
-    const lampada = document.getElementById("lampada")
-
     if(!lampadaQuebrada()){
         lampada.src = "img/ligada.jpg"
         botoesligaDesliga(true, false)
@@ -21,8 +25,6 @@ function ligarLampada(){
 }
 
 function desligarLampada(){
-    const lampada = document.getElementById("lampada")
-
     if(!lampadaQuebrada()){
         lampada.src = "img/desligada.jpg"
         botoesligaDesliga(false, true)
@@ -30,16 +32,42 @@ function desligarLampada(){
 }
 
 function quebrarLampada(){
-    const lampada = document.getElementById("lampada")
 
     lampada.src = "img/quebrada.jpg"
     botoesligaDesliga(true, true)
+}
+
+//function lampadaDesligada(){
+//    return lampada.src.includes("desligada")
+//}
+
+const lampadaDesligada = () => lampada.src.includes("desligada")
+
+function trocarImagem(){
+    if (lampadaDesligada()){
+        ligarLampada()
+    }else{
+        desligarLampada()
+    }
+}
+
+function piscar(){
+    const piscar = document.getElementById("piscar")
+    if (piscar.textContent == "Piscar"){
+        idInterval = setInterval(trocarImagem, 200)
+        piscar.textContent = "Parar"
+    }else{
+        clearInterval(idInterval)
+        piscar.textContent = "Piscar"
+    }
 }
 
 // Eventos
 document.getElementById("ligar").addEventListener("click", ligarLampada)
 
 document.getElementById("desligar").addEventListener("click", desligarLampada)
+
+document.getElementById("piscar").addEventListener("click", piscar)
 
 document.getElementById("lampada").addEventListener("dblclick", quebrarLampada)
 
