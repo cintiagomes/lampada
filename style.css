@@ -34,3 +34,12 @@ footer{
     justify-content: center;
     align-items: flex-start;
 }
+button{
+    border-radius: 4px;
+    border: solid 1px black;
+}
+#piscar{
+    background-color: rgb(172, 255, 47);
+    border-radius: 4px;
+    border: solid 1px black;
+}
